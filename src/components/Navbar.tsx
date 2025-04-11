@@ -1,14 +1,45 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, Search, Bell, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, Search, Bell, User, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
+    navigate('/');
+  };
+
+  const handleAuthButtonClick = () => {
+    if (isAuthenticated) {
+      // Show dropdown menu handled by the DropdownMenu component
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
@@ -38,10 +69,37 @@ const Navbar = () => {
             <button className="text-gray-300 hover:text-white transition-colors">
               <Bell size={20} />
             </button>
-            <button className="text-gray-300 hover:text-white transition-colors">
-              <User size={20} />
-            </button>
-            <Button className="btn-gaming">Sign In</Button>
+            
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors">
+                    <Avatar className="h-8 w-8 bg-gaming-primary/20 hover:bg-gaming-primary/30 transition-colors">
+                      <AvatarFallback className="bg-gaming-primary/20 text-white">
+                        {user?.username.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-gaming-dark border-gaming-secondary/40">
+                  <DropdownMenuLabel className="text-gray-200">My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-gaming-secondary/20" />
+                  <DropdownMenuItem className="text-gray-200 hover:bg-gaming-secondary/20 cursor-pointer">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    className="text-gray-200 hover:bg-gaming-secondary/20 cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button className="btn-gaming" onClick={handleAuthButtonClick}>Sign In</Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,11 +129,23 @@ const Navbar = () => {
                   <button className="text-gray-300 hover:text-white transition-colors">
                     <Bell size={20} />
                   </button>
-                  <button className="text-gray-300 hover:text-white transition-colors">
-                    <User size={20} />
-                  </button>
                 </div>
-                <Button className="btn-gaming">Sign In</Button>
+                {isAuthenticated ? (
+                  <Button 
+                    className="btn-gaming flex items-center space-x-2"
+                    onClick={handleLogout}
+                  >
+                    <LogOut size={16} />
+                    <span>Log out</span>
+                  </Button>
+                ) : (
+                  <Button 
+                    className="btn-gaming"
+                    onClick={handleAuthButtonClick}
+                  >
+                    Sign In
+                  </Button>
+                )}
               </div>
             </div>
           </div>
