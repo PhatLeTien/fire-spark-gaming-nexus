@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Avatar } from '@/components/ui/avatar';
 import { AvatarFallback } from '@/components/ui/avatar';
-import { BotIcon, GamepadIcon } from 'lucide-react';
+import { BotIcon, GamepadIcon, Sparkles } from 'lucide-react';
 import { useAiChat } from '@/hooks/useAiChat';
 import MessageBubble from '@/components/ai-chat/MessageBubble';
 import SuggestedQuestions from '@/components/ai-chat/SuggestedQuestions';
@@ -36,11 +36,17 @@ const AiChat = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-gaming-primary to-gaming-secondary/70">
       <Navbar />
       <main className="flex-grow container mx-auto px-4 py-6">
-        <div className="flex items-center gap-3 mb-6">
-          <BotIcon className="text-purple-400 h-8 w-8" />
-          <h1 className="text-3xl md:text-4xl font-bold text-white">
-            {user ? `Hello, ${user.username}! What would you like to learn today?` : 'FireAssistant'}
-          </h1>
+        <div className="flex flex-col items-start gap-3 mb-6">
+          <div className="flex items-center gap-3">
+            <BotIcon className="text-purple-400 h-8 w-8" />
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              {user ? `Hello, ${user.username}! What would you like to learn today?` : 'FireAssistant'}
+            </h1>
+          </div>
+          <div className="flex items-center bg-purple-600/30 rounded-full px-4 py-1 text-white/90 text-sm">
+            <Sparkles className="h-4 w-4 mr-2 text-yellow-300" />
+            Powered by Google Gemini AI
+          </div>
         </div>
 
         {/* Chat container */}

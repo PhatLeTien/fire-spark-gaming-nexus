@@ -11,4 +11,5 @@ export interface Message {
   timestamp: Date;
   saved?: boolean;
   sources?: Source[];
+  apiUrl?: string; // Thêm trường này để lưu thông tin API URL
 }
