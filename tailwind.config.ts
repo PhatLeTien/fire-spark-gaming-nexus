@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Gaming themed colors
+				gaming: {
+					primary: '#6d28d9', // Purple
+					secondary: '#4f46e5', // Indigo
+					accent: '#ec4899', // Pink
+					dark: '#1a1a2e', // Dark blue-black
+					light: '#f5f5f5', // Light gray
+					highlight: '#f97316', // Orange
 				}
 			},
 			borderRadius: {
@@ -84,11 +94,45 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' }
+				},
+				'fade-out': {
+					'0%': { opacity: '1' },
+					'100%': { opacity: '0' }
+				},
+				'slide-in': {
+					'0%': { transform: 'translateY(20px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'slide-up': {
+					'0%': { transform: 'translateY(10px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'zoom-in': {
+					'0%': { transform: 'scale(0.95)', opacity: '0' },
+					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { boxShadow: '0 0 15px rgba(109, 40, 217, 0.2)' },
+					'50%': { boxShadow: '0 0 30px rgba(109, 40, 217, 0.4)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out',
+				'fade-out': 'fade-out 0.5s ease-out',
+				'slide-in': 'slide-in 0.5s ease-out',
+				'slide-up': 'slide-up 0.3s ease-out',
+				'zoom-in': 'zoom-in 0.3s ease-out',
+				'pulse-glow': 'pulse-glow 2s infinite'
+			},
+			backgroundImage: {
+				'gaming-gradient': 'linear-gradient(to right, #1a1a2e, #4f46e5)',
+				'card-gradient': 'linear-gradient(to bottom right, rgba(79, 70, 229, 0.1), rgba(236, 72, 153, 0.1))'
 			}
 		}
 	},
